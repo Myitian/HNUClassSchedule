@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34227.203
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HNUCurriculum", "HNUCurriculum\HNUCurriculum.csproj", "{97F01E0F-297E-4E19-869C-C79263739C5A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HNUCurriculum.ConsoleApp", "HNUCurriculum.ConsoleApp\HNUCurriculum.ConsoleApp.csproj", "{B2EC1FAE-0F64-4BC6-A0C9-1874370CA898}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97F01E0F-297E-4E19-869C-C79263739C5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97F01E0F-297E-4E19-869C-C79263739C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97F01E0F-297E-4E19-869C-C79263739C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97F01E0F-297E-4E19-869C-C79263739C5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2EC1FAE-0F64-4BC6-A0C9-1874370CA898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2EC1FAE-0F64-4BC6-A0C9-1874370CA898}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2EC1FAE-0F64-4BC6-A0C9-1874370CA898}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2EC1FAE-0F64-4BC6-A0C9-1874370CA898}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50654628-F21F-4867-97BA-1A6F1C30CC07}
+	EndGlobalSection
+EndGlobal
