@@ -5,13 +5,12 @@ using System.Text;
 using System.Web;
 using HNUCurriculum.API.Login;
 using HNUCurriculum.RSAHelper;
-
-
+using System.Text.Json.Serialization;
+using HNUCurriculum.JsonUtils;
+using System.Text.Json;
 
 #if NET6_0_OR_GREATER
 using System.Net.Http.Json;
-#else
-using System.Text.Json;
 #endif
 
 namespace HNUCurriculum;
@@ -95,13 +94,13 @@ public class Curriculum : IDisposable
         return await ReadJson<CourseList>(resp);
     }
 
-    private async Task<T?> ReadJson<T>(HttpResponseMessage resp)
+    private async Task<T?> ReadJson<T>(HttpResponseMessage resp) where T : class
     {
 #if NET6_0_OR_GREATER
-        return await resp.Content.ReadFromJsonAsync<T>();
+        return await resp.Content.ReadFromJsonAsync(typeof(T), SourceGenerationContext.Default) as T;
 #else
         using Stream s = await resp.Content.ReadAsStreamAsync();
-        return await JsonSerializer.DeserializeAsync<T>(s);
+        return await JsonSerializer.DeserializeAsync(s, typeof(T), SourceGenerationContext.Default) as T;
 #endif
     }
 

@@ -1,5 +1,4 @@
-﻿using HNUCurriculum.JsonConverters;
-using System.Text;
+﻿using HNUCurriculum.JsonUtils;
 using System.Text.Json.Serialization;
 
 namespace HNUCurriculum.API;
@@ -110,6 +109,7 @@ public class Lesson : IComparable<Lesson>
     public string? TeachingClass { get; set; }
 
     /// <summary>周次</summary>
+    [JsonConverter(typeof(Int32StringJsonConverter))]
     [JsonPropertyName("zc")]
     public int WeekNumber { get; set; }
 
@@ -163,6 +163,7 @@ public class Lesson : IComparable<Lesson>
     public DateTime? EndDate { get; set; }
 
     /// <summary>星期</summary>
+    [JsonConverter(typeof(Int32StringJsonConverter))]
     [JsonPropertyName("xq")]
     public int Weekday { get; set; }
 
@@ -177,16 +178,14 @@ public class Lesson : IComparable<Lesson>
     [JsonIgnore]
     private static readonly string[] DayOfWeek = { "", "周一", "周二", "周三", "周四", "周五", "周六", "周日" };
 
-    public override string ToString()
-    {
-        return new StringBuilder(CourseName).Append(Environment.NewLine)
-            .Append(StartDateTime.ToString("yyyy-MM-dd HH:mm:ss")).Append(" ~ ").Append(EndDateTime.ToString("yyyy-MM-dd HH:mm:ss")).Append(Environment.NewLine)
-            .Append('第').Append(WeekNumber).Append("周 ").Append(DayOfWeek[Weekday]).Append(' ').Append(OccupiedLessons2).Append('节').Append(Environment.NewLine)
-            .Append(Teacher).Append(Environment.NewLine)
-            .Append('[').Append(CampusName).Append(']').Append(TeachingVenue).Append('(').Append(TeachingBuilding).Append(')').Append(Environment.NewLine)
-            .Append('[').Append(TeachingClass).Append(']').Append(SubjectName).Append(Environment.NewLine)
-            .Append(Remarks).ToString();
-    }
+    public override string ToString() =>
+$@"{CourseName}
+{StartDateTime:yyyy-MM-dd HH:mm:ss} ~ {EndDateTime:yyyy-MM-dd HH:mm:ss}
+第{WeekNumber}周 {DayOfWeek[Weekday]} {OccupiedLessons2}节
+{Teacher}
+[{CampusName}]{TeachingVenue}({TeachingBuilding})
+[{TeachingClass}]{SubjectName}
+{Remarks}";
 
     public int CompareTo(Lesson? other)
     {

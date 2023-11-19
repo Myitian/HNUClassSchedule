@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace HNUCurriculum.JsonConverters
+namespace HNUCurriculum.JsonUtils
 {
     public class NullableDateTimeJsonConverter : JsonConverter<DateTime?>
     {

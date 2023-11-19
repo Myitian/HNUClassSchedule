@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HNUCurriculum.API
+﻿namespace HNUCurriculum.API
 {
     public class Translation
     {
@@ -22,7 +18,7 @@ namespace HNUCurriculum.API
             get => language;
             set
             {
-                if(Languages.Contains(value))
+                if (Languages.Contains(value))
                     language = value;
                 else
                     throw new ArgumentOutOfRangeException(nameof(value));
