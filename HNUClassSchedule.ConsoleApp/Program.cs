@@ -5,30 +5,56 @@ using HNUClassSchedule.API.Login;
 
 Dictionary<string, string?> argPairs = [];
 string? username = null, password = null;
+bool readCache = true, writeCache = true;
+bool? tmp;
 for (int i = 0; i < args.Length; i++)
 {
-    switch (args[i])
+    string key = args[i++].ToLower();
+    if (i >= args.Length)
+        break;
+    switch (key)
     {
         case "-p":
         case "-pwd":
         case "-password":
-            i++;
-            if (i >= args.Length)
-                goto SuperBreak;
-            username = args[i];
+            password = args[i];
             break;
         case "-u":
         case "-usr":
         case "-user":
         case "-username":
-            i++;
-            if (i >= args.Length)
-                goto SuperBreak;
-            password = args[i];
+            username = args[i];
+            break;
+        case "-c":
+        case "-cache":
+            tmp = ParseBoolean(args[i]);
+            if (tmp is not null)
+            {
+                readCache = tmp.Value;
+                writeCache = tmp.Value;
+            }
+            break;
+        case "-rc":
+        case "-rcache":
+        case "-readcache":
+            tmp = ParseBoolean(args[i]);
+            if (tmp is not null)
+            {
+                readCache = tmp.Value;
+            }
+            break;
+        case "-wc":
+        case "-wcache":
+        case "-writecache":
+            tmp = ParseBoolean(args[i]);
+            if (tmp is not null)
+            {
+                writeCache = tmp.Value;
+            }
             break;
     }
 }
-SuperBreak:
+
 Translation tr = new();
 var classSchedule = await CreateClassSchedule(username, password, translation: tr);
 var today = await classSchedule.RequestTodayClassSchedule();
@@ -118,13 +144,14 @@ if (count.Count > 0)
 static async Task<ClassSchedule> CreateClassSchedule(
     string? username = null,
     string? password = null,
-    bool useCache = true,
+    bool readCache = true,
+    bool writeCache = true,
     HttpMessageHandler? httpMessageHandler = null,
     Translation? translation = null)
 {
     username ??= ReadNotNullString("用户名：");
     ClassSchedule classSchedule = new(httpMessageHandler: httpMessageHandler);
-    if (useCache && File.Exists(username))
+    if (readCache && File.Exists(username))
     {
         Info("检测到 Token 缓存");
         string token = File.ReadAllText(username);
@@ -142,7 +169,7 @@ static async Task<ClassSchedule> CreateClassSchedule(
     {
         Console.WriteLine(translation[loginResp.Response?.Msg]);
     }
-    if (useCache)
+    if (writeCache)
     {
         File.WriteAllText(username, classSchedule.Token);
     }
@@ -176,6 +203,16 @@ static string ReadNotNullString(string prompt = "")
     string? read;
     while ((read = Console.ReadLine()) is null) ;
     return read;
+}
+
+static bool? ParseBoolean(string text)
+{
+    return text.ToLower() switch
+    {
+        "+" or "1" or "y" or "yes" or "t" or "true" => true,
+        "-" or "0" or "n" or "no" or "f" or "false" => true,
+        _ => null,
+    };
 }
 
 static void Info(string message)

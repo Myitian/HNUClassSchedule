@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HNUClassSchedule.ConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "-u 2308114070"
+    }
+  }
+}
