@@ -56,7 +56,7 @@ for (int i = 0; i < args.Length; i++)
 }
 
 Translation tr = new();
-var classSchedule = await CreateClassSchedule(username, password, translation: tr);
+var classSchedule = await CreateClassSchedule(username, password, readCache, writeCache, null, tr);
 var today = await classSchedule.RequestTodayClassSchedule();
 var week = await classSchedule.RequestWeekClassSchedule();
 var all = await classSchedule.RequestFullClassSchedule();
@@ -210,7 +210,7 @@ static bool? ParseBoolean(string text)
     return text.ToLower() switch
     {
         "+" or "1" or "y" or "yes" or "t" or "true" => true,
-        "-" or "0" or "n" or "no" or "f" or "false" => true,
+        "-" or "0" or "n" or "no" or "f" or "false" => false,
         _ => null,
     };
 }

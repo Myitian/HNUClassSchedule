@@ -2,7 +2,7 @@
   "profiles": {
     "HNUClassSchedule.ConsoleApp": {
       "commandName": "Project",
-      "commandLineArgs": "-u 2308114070"
+      "commandLineArgs": "-u 2308114070\r\n-rc false"
     }
   }
 }
